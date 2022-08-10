@@ -4,3 +4,16 @@ GET http://localhost:8000/api/v1/
 
 #   ===Admin API
 ### post new admin user
+
+POST http://localhost:8000/api/v1/admin-user
+Content-Type: application/json
+
+{
+    "fName":"Sandeep",
+    "lName":"Prajapati",
+    "email":"sandeepnewa@gmail.com",
+    "password":"123456",
+    "phone":"123456789",
+    "address":"Bardia",
+    "dob":"2020-02-20"
+}
