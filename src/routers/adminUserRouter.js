@@ -1,6 +1,6 @@
 import express from 'express'
 import { comparePassword, hashPassword } from '../helpers/bcryptHelper.js';
-import { insertAdminUser, updateOneAdminUser } from '../models/adminUser/AdminUserModel.js';
+import { insertAdminUser, updateOneAdminUser, findOneAdminUser } from '../models/adminUser/AdminUserModel.js';
 import { newAdminUserValidation, loginValidation } from './../middlewares/joi-validation/adminUserValidation.js'
 const router = express.Router()
 import { v4 as uuidv4 } from 'uuid';
@@ -85,7 +85,7 @@ router.patch("/verify-email", emailVerificationValidation, async (req, res, next
 
 
 // Admin login 
-router.patch("/login", loginValidation, async (req, res, next) => {
+router.post("/login", loginValidation, async (req, res, next) => {
     try {
         const { password, email } = req.body
         const user = await findOneAdminUser({ email })
@@ -104,8 +104,7 @@ router.patch("/login", loginValidation, async (req, res, next) => {
             const isMatched = comparePassword(password, user.password)
             if (isMatched) {
                 user.password = undefined;
-                return
-                res.json({
+                return   res.json({
                     status: "success",
                     message: "Logged in successfully",
                     user,
