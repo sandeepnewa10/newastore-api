@@ -47,7 +47,34 @@ export const verificationEmail = emailData =>{
     <p> please follow the link to verify your email</p>
     <br/>
     <br/>
-    <p>: ${emailData.url}
+    <a href="${emailData.url}"> CLick there to Active</a>
+    Regards, <br />
+    Sandeep Prajapati
+    </p>
+    `, // html body
+   }
+   emailProcesser(emailBody)
+    
+}
+
+
+
+
+
+export const userVerifiednotification = emailData =>{
+    const emailBody = {
+    from: '"Newastore 👻" <myemail@newastore.com>', // sender address
+    to: emailData.email, // list of receivers
+    subject: "Your account has been vertified.", // Subject line
+    text: `Hi ${emailData.fName}, Your account has been vertified, you may login in now: ${process.env.ROOT_DOMAIN}`, // plain text body
+    html: `
+    <p>Hi ${emailData.fName}</p>
+    <br />
+    <br />
+    <p> please follow the link to verify your email</p>
+    <br/>
+    <br/>
+    <a href="${process.env.ROOT_DOMAIN}">${process.env.ROOT_DOMAIN} </a>
     Regards, <br />
     Sandeep Prajapati
     </p>

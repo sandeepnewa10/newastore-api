@@ -17,3 +17,12 @@ Content-Type: application/json
     "address":"Bardia",
     "dob":"2020-02-20"
 }
+
+### login admin user
+POST http://localhost:8000/api/v1/admin-user/login
+Content-Type: application/json
+
+{
+    "email":"sandeepnewaa@gmail.com",
+    "password":"123456"
+}

@@ -7,6 +7,6 @@ node_modules
 
 #bcryptjs   (for password Ecrypt)
 #joi ( for data validator)
-#uuid ( for random UUID)
+#uuid ( for email verification code using UUID)
 #nodemailer (a self-hosted email gateway that allows making REST requests against IMAP and SMTP servers. EmailEngine also sends webhooks whenever something changes on the registered accounts )
 
