@@ -23,6 +23,6 @@ POST http://localhost:8000/api/v1/admin-user/login
 Content-Type: application/json
 
 {
-    "email":"sandeepnewaa@gmail.com",
+    "email":"sandeepnewa@gmail.com",
     "password":"123456"
 }

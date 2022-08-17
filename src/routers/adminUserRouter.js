@@ -6,6 +6,7 @@ const router = express.Router()
 import { v4 as uuidv4 } from 'uuid';
 import { verificationEmail, userVerifiednotification } from '../helpers/emailHelper.js';
 import { emailVerificationValidation } from '../middlewares/joi-validation/adminUserValidation.js'
+import {createJWTs} from '../helpers/jwtHelpers.js'
 
 // create unique varification code
 // send create a link poiting to our frontend with the email and verification code and send to their email
@@ -88,7 +89,9 @@ router.patch("/verify-email", emailVerificationValidation, async (req, res, next
 router.post("/login", loginValidation, async (req, res, next) => {
     try {
         const { password, email } = req.body
+        console.log(email)
         const user = await findOneAdminUser({ email })
+       
        
         if (user?._id) {
 
@@ -104,10 +107,14 @@ router.post("/login", loginValidation, async (req, res, next) => {
             const isMatched = comparePassword(password, user.password)
             if (isMatched) {
                 user.password = undefined;
+
+                //JWT
+                const jwts =  await createJWTs({email})
                 return   res.json({
                     status: "success",
                     message: "Logged in successfully",
                     user,
+                    ...jwts,
                 })
             }
         } 
@@ -115,7 +122,7 @@ router.post("/login", loginValidation, async (req, res, next) => {
             status: "error",
             message: "Invalid login credintials"
         })
-        console.log(user)
+      
     } catch (error) {
         next(error)
     }

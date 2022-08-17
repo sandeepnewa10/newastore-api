@@ -2,7 +2,7 @@ node_modules
 .env
 
 #package
-#npm i express mongoose cors helmet dotenv bcryptjs joi uuid nodemailer
+#npm i express mongoose cors helmet dotenv bcryptjs joi uuid nodemailer jsonwebtoken
 
 
 #bcryptjs   (for password Ecrypt)
@@ -10,3 +10,4 @@ node_modules
 #uuid ( for email verification code using UUID)
 #nodemailer (a self-hosted email gateway that allows making REST requests against IMAP and SMTP servers. EmailEngine also sends webhooks whenever something changes on the registered accounts )
 
+#jsonwebtoken ( JSON Web Tokens authorization)
