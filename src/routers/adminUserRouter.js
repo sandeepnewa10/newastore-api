@@ -1,11 +1,11 @@
 import express from 'express'
 import { comparePassword, hashPassword } from '../helpers/bcryptHelper.js';
 import { insertAdminUser, updateOneAdminUser, findOneAdminUser } from '../models/adminUser/AdminUserModel.js';
-import { newAdminUserValidation, loginValidation } from './../middlewares/joi-validation/adminUserValidation.js'
+import { newAdminUserValidation, loginValidation } from '../middlewares/joi-validation/joiValidation.js'
 const router = express.Router()
 import { v4 as uuidv4 } from 'uuid';
 import { verificationEmail, userVerifiednotification } from '../helpers/emailHelper.js';
-import { emailVerificationValidation } from '../middlewares/joi-validation/adminUserValidation.js'
+import { emailVerificationValidation } from '../middlewares/joi-validation/joiValidation.js'
 import {createJWTs} from '../helpers/jwtHelpers.js'
 
 // create unique varification code

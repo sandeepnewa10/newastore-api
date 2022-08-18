@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { ADDRESS, DATE, EMAIL, FNAME, LNAME, PASSWORD, PHONE, SHORTSTR, validate } from './constant.js';
+import { ADDRESS, DATE, EMAIL, FNAME, LNAME, PASSWORD, PHONE, SHORTSTR, STATUS, validate } from './constant.js';
 
 export const newAdminUserValidation = (req, res, next) => {
   
@@ -35,5 +35,20 @@ export const loginValidation = (req, res, next) => {
             password: PASSWORD.required()
         })
         validate(schema, req, res, next)        
+
+}
+
+
+// ========== category
+
+
+export const newCategoryValidation = (req, res, next) => {  
+    req.body.parentId = req.body.parentId ? req.body.parentId : null;
+    const schema = Joi.object({
+        status: STATUS,
+        name: SHORTSTR.required(),
+        parentId: SHORTSTR.allow(null, ""),
+    })
+    validate(schema, req, res, next)        
 
 }

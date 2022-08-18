@@ -26,3 +26,27 @@ Content-Type: application/json
     "email":"sandeepnewa@gmail.com",
     "password":"123456"
 }
+
+
+#============== category APIS
+# create new category
+###
+POST http://localhost:8000/api/v1/category
+Content-Type: application/json
+
+{
+    "status":"active",
+    "name": "Macbook Pro M2",
+    "parentId":"62fd8f939b5e7556f610263c"
+}
+
+
+
+### get categories 
+GET http://localhost:8000/api/v1/category
+
+{
+    "status":"active",
+    "name": "Macbook Pro M2",
+    "parentId":""
+}

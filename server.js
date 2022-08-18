@@ -21,13 +21,9 @@ app.use(express.json())
 
 // Apis
 import adminUserRouter  from "./src/routers/adminUserRouter.js";
+import categoryRouter from "./src/routers/categoryRouter.js"
 app.use("/api/v1/admin-user", adminUserRouter)
-
-app.post("/", (req, res) =>{
-    res.json({
-        message: "Hi therem you are lost."
-    })
-})
+app.use("/api/v1/category", categoryRouter)
 
 
 
