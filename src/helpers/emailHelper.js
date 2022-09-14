@@ -1,85 +1,111 @@
-import nodemailer from 'nodemailer'
+import nodemailer from "nodemailer";
+//email configuration and send email
 
-// email configuration and send email
+//email templet
 
+const emailProcesser = async (emailBody) => {
+  try {
+    //1.
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_SMTP,
+      port: process.env.EMAIL_PORT,
+      auth: {
+        user: process.env.EMAIL_USER, // generated ethereal user
+        pass: process.env.EMAIL_PASSWORD, // generated ethereal password
+      },
+    });
 
+    // send mail with defined transport object
+    let info = await transporter.sendMail(emailBody);
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// email template
-
-const emailProcesser = async (emailBody) =>{
-    try{
-
-
-        // 1 
-                
-        // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_SMTP,
-            port: process.env.EMAIL_PORT,
-            secure: false, // true for 465, false for other ports
-            auth: {
-                user: process.env.EMAIL_USER, // generated ethereal user
-                pass: process.env.EMAIL_PASSWORD, // generated ethereal password
-            },
-        });
-
-        // 2
-        // send mail with defined transport object
-            let info = await transporter.sendMail(emailBody);
-            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-
-    } catch(error){
-        console.log(error)
-    }
-}
-
-
-export const verificationEmail = emailData =>{
-    const emailBody = {
-    from: '"Newastore 👻" <myemail@newastore.com>', // sender address
+//make suer the emaiData has fName,e mail and url
+export const verificationEmail = (emailData) => {
+  console.log(emailData);
+  const emailBody = {
+    from: '"Prem Store 👻" <myemail@premstore.com>', // sender address
     to: emailData.email, // list of receivers
     subject: "Email verification instruction", // Subject line
-    text: `Hi ${emailData.fName}, please follow the link to verify your email: ${emailData.url}`, // plain text body
+    text: `Hi ${emailData.fName}, please follow the linke to verify your email: ${emailData.url}`, // plain text body
     html: `
-    <p>Hi ${emailData.fName}</p>
-    <br />
-    <br />
-    <p> please follow the link to verify your email</p>
-    <br/>
-    <br/>
-    <a href="${emailData.url}"> CLick there to Active</a>
-    Regards, <br />
-    Sandeep Prajapati
-    </p>
-    `, // html body
-   }
-   emailProcesser(emailBody)
+        <p>Hi ${emailData.fName}</p>
+        <br />
+        <br />
+        <p> please follow the linke to verify your email</p>
+        <br />
+        <br />
+        <p > <a style="color:red" href= "${emailData.url}">Verify Email</a> </p>
+
+        <p>
+        Regards, <br />
+        Prem digital Store
+        </p>
     
-}
+        `, // html body
+  };
 
+  emailProcesser(emailBody);
+};
 
-
-
-
-export const userVerifiednotification = emailData =>{
-    const emailBody = {
-    from: '"Newastore 👻" <myemail@newastore.com>', // sender address
+//make suer the emaiData has fName,e mail and url
+export const userVerifiednotification = (emailData) => {
+  const emailBody = {
+    from: '"Prem Store 👻" <myemail@premstore.com>', // sender address
     to: emailData.email, // list of receivers
-    subject: "Your account has been vertified.", // Subject line
-    text: `Hi ${emailData.fName}, Your account has been vertified, you may login in now: ${process.env.ROOT_DOMAIN}`, // plain text body
+    subject: "Your account has been verified", // Subject line
+    text: `Hi ${emailData.fName}, You account has been verified, you may logined in now. ${process.env.ROOT_DOMAI} `, // plain text body
     html: `
-    <p>Hi ${emailData.fName}</p>
-    <br />
-    <br />
-    <p> please follow the link to verify your email</p>
-    <br/>
-    <br/>
-    <a href="${process.env.ROOT_DOMAIN}">${process.env.ROOT_DOMAIN} </a>
-    Regards, <br />
-    Sandeep Prajapati
-    </p>
-    `, // html body
-   }
-   emailProcesser(emailBody)
+        <p>Hi ${emailData.fName}</p>
+        <br />
+        <br />
+        <p> ou account has been verified, you may logined in now.
+        <a href = "${process.env.ROOT_DOMAI}">${process.env.ROOT_DOMAI}</a>
+         </p>
+        <br />
+        <br />
+        
+
+        <p>
+        Regards, <br />
+        Prem digital Store
+        </p>
     
-}
+        `, // html body
+  };
+
+  emailProcesser(emailBody);
+};
+
+//send otp to the user email
+export const otpNotification = (emailData) => {
+  const emailBody = {
+    from: '"Prem Store 👻" <myemail@premstore.com>', // sender address
+    to: emailData.email, // list of receivers
+    subject: "OPT for password reset", // Subject line
+    text: `Hi ${emailData.fName}, Please user the follow OTP to reset your password: ${emailData.otp} `, // plain text body
+    html: `
+        <p>Hi ${emailData.fName}</p>
+        <br />
+        <br />
+        <p> Please use the following OTP to rest your new password
+        <p>${emailData.otp}</p>
+         </p>
+        <br />
+        <br />
+        
+
+        <p>
+        Regards, <br />
+        Prem digital Store
+        </p>
+    
+        `, // html body
+  };
+
+  emailProcesser(emailBody);
+};

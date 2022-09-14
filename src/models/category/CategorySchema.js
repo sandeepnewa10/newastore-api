@@ -1,27 +1,32 @@
-import  mongoose  from "mongoose";
+import mongoose from "mongoose";
 
-const catSchema =  new mongoose.Schema({
-    status:{
-        type: String,
-        default: 'inactive' //active, inactive
+const catSchema = new mongoose.Schema(
+  {
+    status: {
+      type: String,
+      default: "inactive", //active, inactive
     },
     name: {
-        type: String,
-        require: true,
-        maxLength: 50,
+      type: String,
+      require: true,
+      maxLength: 50,
     },
     slug: {
-        type: String,
-        unique: true,
-        index: 1,
-        maxLength: 50,
-        trim: true,
-        require: true,
+      type: String,
+      require: true,
+      unique: true,
+      index: 1,
+      maxLength: 50,
+      trim: true,
     },
-    parentId:{
-        type: mongoose.Schema.Types.ObjectId,
-        default: null
-    }
-})
+    parentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      default: null,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default mongoose.model("Category", catSchema)
+export default mongoose.model("Category", catSchema);
